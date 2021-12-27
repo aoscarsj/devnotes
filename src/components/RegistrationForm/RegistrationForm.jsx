@@ -7,7 +7,23 @@ class RegistrationForm extends Component {
     this.title = '';
     this.text = '';
     this.category = 'Without category';
+    this.state = { categories: [] };
+
+    this._newCategories = this._newCategories.bind(this);
   }
+
+  componentDidMount() {
+    this.props.categories.enroll(this._newCategories);
+  }
+
+  componentWillUnmount() {
+    this.props.categories.unsubscribe(this._newCategories);
+  }
+
+  _newCategories(categories) {
+    this.setState({ ...this.state, categories });
+  }
+
   _handleChangeTitle(event) {
     /* O this em JS eh dinamico, nesse contexto funciona, mas no onChange, ao executar, o this la nao se refere a esse obj.
       para resolver eh necessario fazer o .bind e passar o obj do this como param
@@ -42,8 +58,8 @@ class RegistrationForm extends Component {
         >
           <option>Without category</option>
 
-          {this.props.categories.map((category) => {
-            return <option>{category}</option>;
+          {this.state.categories.map((category, index) => {
+            return <option key={index}>{category}</option>;
           })}
         </select>
         <input
