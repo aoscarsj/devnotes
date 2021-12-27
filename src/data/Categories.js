@@ -4,10 +4,14 @@ export default class Categories{
       this._enrollers = [];
    }
 
-   enrol(func){
+   enroll(func){
       this._enrollers.push(func);
    }
-
+   unsubscribe(func){
+      console.log(this._enrollers);
+      this._enrollers = this._enrollers.filter(f => f !== func);
+      console.log(this._enrollers);
+   }
    notify(){
       this._enrollers.forEach(func => func(this.categories)); // recebe e executa a funcao
    }
@@ -15,5 +19,6 @@ export default class Categories{
    add(name){
       console.log('categories:', this.categories);
       this.categories.push(name);
+      this.notify();
    }
 }

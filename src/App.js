@@ -4,7 +4,7 @@ import RegistrationForm from './components/RegistrationForm';
 import CategoriesList from './components/CategoriesList';
 import "./assets/app.css";
 import './assets/index.css';
-import ArrayNotes from './data/ArrayNotes'
+import ArrayNotes from './data/Notes'
 import Categories from './data/Categories'
 class App extends Component {
   constructor() {
@@ -16,10 +16,10 @@ class App extends Component {
   render() {
     return (
       <section className="content">
-        <RegistrationForm categories={this.categories.categories} createNote={this.notes.add} />
+        <RegistrationForm categories={this.categories} createNote={this.notes.add.bind(this.notes)} />
         <main className="main-content">
-          <CategoriesList categories={this.categories.categories} addCategory={this.categories.add} />
-          <NoteList notes={this.notes.notes} deleteNote={this.notes.delete} />
+          <CategoriesList categories={this.categories} addCategory={this.categories.add.bind(this.categories)} />
+          <NoteList notes={this.notes} deleteNote={this.notes.delete.bind(this.notes)} />
         </main>
       </section >
     );
